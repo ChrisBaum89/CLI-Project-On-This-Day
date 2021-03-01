@@ -33,7 +33,6 @@ class CommandLineInterface
       @month = Month.all[month_number.to_i - 1].name
       puts "You selected #{@month}. Please select a day of the month."
       @day = gets.strip
-      binding.pry
     else
       incorrect_selection
     end
