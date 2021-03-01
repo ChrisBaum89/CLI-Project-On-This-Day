@@ -1,7 +1,7 @@
 class Month
-  attr_reader :number
+  attr_reader :name, :number
 
-  def initialize(number)
+  def initialize(name, number)
     @number = number
   end
 
