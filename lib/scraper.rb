@@ -18,5 +18,10 @@ class Scraper
 
   def create_events
 
+    #hash needs to have month, day, year, event description
+    hash = {
+      :month => @month,
+      :day: => @day
+    }
   end
 end
