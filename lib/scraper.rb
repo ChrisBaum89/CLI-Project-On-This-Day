@@ -1,5 +1,5 @@
 require 'pry'
-require 'nokigir'
+require 'nokogiri'
 
 class Scraper
   attr_reader :month, :day
@@ -21,7 +21,7 @@ class Scraper
     #hash needs to have month, day, year, event description
     hash = {
       :month => @month,
-      :day: => @day
+      :day => @day
     }
   end
 end
