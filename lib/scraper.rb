@@ -9,7 +9,6 @@ class Scraper
     @month = month
     @day = day
     @hash = {}
-    binding.pry
     obtain_html
   end
 
