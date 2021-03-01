@@ -18,18 +18,22 @@ class CommandLineInterface
   end
 
   def user_selection(input)
+
     if input == "1"
       @month = time.month
       @day = time.day
+      correct_selection
     elsif input == "2"
       puts "Select a month by entering the number that corresponds with the month:"
       Month.all.each do |x|
         puts "#{x.number}. #{x.name}"
       end
       puts "----------------------------------------------------------"
-      @month = gets.strip
-      puts "You selected #{month.capitalize}. Please select a day."
+      month_number = gets.strip
+      @month = Month.all[month_number.to_i - 1].name
+      puts "You selected #{@month}. Please select a day of the month."
       @day = gets.strip
+      binding.pry
     else
       incorrect_selection
     end
@@ -39,6 +43,10 @@ class CommandLineInterface
   def incorrect_selection
     puts "Selection not available, please try again."
     run
+  end
+
+  def correct_selection
+    Scraper.new(@month, @day)
   end
 
   #sets the months
