@@ -3,6 +3,7 @@ require_relative "../lib/month.rb"
 require_relative "../lib/event.rb"
 #require 'nokogiri'
 require 'pry'
+require 'time'
 
 #class will allow a user to select a month and day
 #class will allow a user to select today
@@ -10,21 +11,22 @@ class CommandLineInterface
   attr_reader :month, :day
 
   def run
-    months
+    months #calls method which creates the month object for each month
     puts "By inputing a month and a day, we can learn about notable events that happened on that day!"
     puts "Please enter 1 if you would like to learn about an event in history today."
     puts "Please enter 2 if you would like to select a month and day."
     puts "----------------------------------------------------------"
-    input = gets.strip
-    user_selection(input)
+    input = gets.strip #gets user selection
+    user_selection(input) #calls method to handle user selection
     puts "Historical events that occured on #{month} #{day}:"
-    output_events
+    output_events #calls method to output events to CLI
   end
 
   def user_selection(input)
     if input == "1"
-      @month = time.month
-      @day = time.day
+      @month = Time.now().month #obtains current month number
+      @day = Time.now().day() #obtains current day number
+      binding.pry
       correct_selection
     elsif input == "2"
       puts "Select a month by entering the number that corresponds with the month:"
