@@ -13,17 +13,20 @@ class Scraper
   end
 
   def obtain_html
-    index_url = "https://en.wikipedia.org/wiki/Wikipedia:Selected_anniversaries/#{@month}"
+    index_url = "https://en.wikipedia.org/wiki/Wikipedia:Selected_anniversaries/#{@month}_#{@day}"
     @doc = Nokogiri::HTML(open(index_url))
     binding.pry
   end
 
-  def create_events
-
+  def create_event_hash
     #hash needs to have month, day, year, event description
     hash = {
       :month => @month,
-      :day => @day
+      :day => @day,
+      :year => @doc.css('div.mw-parser-output ul li')[8].children[0].values[1],
+      :description => @doc.css('div.mw-parser-output ul li')[8].text
     }
+    Event.new(hash)
   end
+
 end
