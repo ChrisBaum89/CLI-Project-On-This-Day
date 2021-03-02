@@ -19,7 +19,7 @@ class CommandLineInterface
     puts ""
     puts_divider
     puts "By inputing a month and a day, we can learn about notable events that happened on that day!"
-    puts "Please enter 1 if you would like to select today's date (#{@today_month} #{@today_day})."
+    puts "Please enter 1 if you would like to select today's date (#{@today_month.name} #{@today_day})."
     puts "Please enter 2 if you would like to select a month and day."
     puts "Please enter 3 if you would like to exit the program."
     puts_divider
