@@ -9,15 +9,20 @@ require 'time'
 class CommandLineInterface
   attr_reader :month, :day
 
+  def initialize
+    months
+    @today_month = Month.all[(Time.now().month).to_i - 1] #obtains current month
+    @today_day = Time.now().day() #obtains current day number
+  end
+  #allows for initial questions and obtain user input
   def run
-    months #calls method which creates the month object for each month
     puts ""
-    puts "----------------------------------------------------------"
+    puts_divider
     puts "By inputing a month and a day, we can learn about notable events that happened on that day!"
-    puts "Please enter 1 if you would like to learn about an event in history today."
+    puts "Please enter 1 if you would like to select today's date (#{@today_month} #{@today_day})."
     puts "Please enter 2 if you would like to select a month and day."
     puts "Please enter 3 if you would like to exit the program."
-    puts "----------------------------------------------------------"
+    puts_divider
     input = gets.strip #gets user selection
     user_selection(input) #calls method to handle user selection
     output_events unless input == "3" #calls method to output events to CLI
@@ -25,19 +30,21 @@ class CommandLineInterface
 
   def user_selection(input)
     if input == "1"
-      #month_number = Time.now().month #obtains current month number
-      @month = Month.all[(Time.now().month).to_i - 1].name
-      @day = Time.now().day() #obtains current day number
+      @month = @today_month
+      @day = @today_day
       create_scraper
     elsif input == "2"
       puts "Select a month by entering the number that corresponds with the month:"
+
+      #prints out all of the months
       Month.all.each do |x|
         puts "#{x.number}. #{x.name}"
       end
-      puts "----------------------------------------------------------"
+      puts_divider
       month_number = gets.strip
-      @month = Month.all[month_number.to_i - 1].name
-      puts "You selected #{@month}. Please select a day of the month."
+      @month = Month.all[month_number.to_i - 1]
+      puts "You entered #{@month.name}. Please enter a day of the month."
+      puts "Note:  #{@month.name} has #{@month.number_of_days} days."
       @day = gets.strip
       if valid_day?
         create_scraper
@@ -51,7 +58,8 @@ class CommandLineInterface
   end
 
   def output_events
-    puts "Historical events that occured on #{month} #{day}:"
+    puts_divider
+    puts "Historical events that occured on #{@month.name} #{@day}:"
     Event.all.each do |x|
       puts "#{x.description}"
       puts ""
@@ -66,7 +74,7 @@ class CommandLineInterface
   end
 
   def create_scraper
-    Scraper.new(@month, @day)
+    Scraper.new(@month.name, @day)
   end
 
   #sets the months
@@ -88,7 +96,7 @@ class CommandLineInterface
   def valid_day?
     valid_selection = []
     Month.all.each do |x|
-      if x.name == @month && (x.number_of_days >= @day.to_i)
+      if x.name == @month.name && (x.number_of_days >= @day.to_i)
         valid_selection << true
       else
         valid_selection << false
@@ -96,4 +104,10 @@ class CommandLineInterface
     end
     valid_selection.include?(true)
   end
+
+  def puts_divider
+    puts "----------------------------------------------------------"
+  end
+
+
 end
