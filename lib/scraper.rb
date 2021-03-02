@@ -32,12 +32,13 @@ class Scraper
           :description => @doc.css('div.mw-parser-output ul li')[i].text
         }
         Event.new(hash)
-        #binding.pry
       end
       i += 1
     end
   end
 
+  #year_is_integer? method verifies that the information going into the year hash is actually
+  #a numeric number.
   def year_is_integer?(string)
       string.to_i.to_s == string
   end
