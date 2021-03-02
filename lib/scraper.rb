@@ -22,7 +22,7 @@ class Scraper
     #hash needs to have month, day, year, event description
     #if statement verifies that an event description and year exist
     i = 8
-    while @doc.css('div.mw-parser-output ul li')[i] != nil && @doc.css('div.mw-parser-output ul li')[i].text != nil
+    while @doc.css('div.mw-parser-output ul li')[i] != nil && @doc.css('div.mw-parser-output ul li')[i].children[0].values[1] != nil
       hash = {
         :month => @month,
         :day => @day,
@@ -32,7 +32,6 @@ class Scraper
       Event.new(hash)
       i += 1
     end
-    binding.pry
   end
 
 end
