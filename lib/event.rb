@@ -20,7 +20,7 @@ class Event
 
 #sorts by year to be more intuitive to read
   def sorted
-    @@all.sort_by(&:year)
+    @@all = @@all.sort_by(&:year)
   end
 
 end
