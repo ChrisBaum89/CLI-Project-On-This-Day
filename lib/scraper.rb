@@ -10,23 +10,30 @@ class Scraper
     @day = day
     @hash = {}
     obtain_html
+
+    create_event
   end
 
   def obtain_html
     index_url = "https://en.wikipedia.org/wiki/Wikipedia:Selected_anniversaries/#{@month}_#{@day}"
     @doc = Nokogiri::HTML(open(index_url))
-    binding.pry
   end
 
-  def create_event_hash
+  def create_event
     #hash needs to have month, day, year, event description
-    hash = {
-      :month => @month,
-      :day => @day,
-      :year => @doc.css('div.mw-parser-output ul li')[8].children[0].values[1],
-      :description => @doc.css('div.mw-parser-output ul li')[8].text
-    }
-    Event.new(hash)
+    #if statement verifies that an event exists
+    i = 8
+    while @doc.css('div.mw-parser-output ul li')[i] != nil
+      hash = {
+        :month => @month,
+        :day => @day,
+        :year => @doc.css('div.mw-parser-output ul li')[i].children[0].values[1],
+        :description => @doc.css('div.mw-parser-output ul li')[i].text
+      }
+      binding.pry
+      #Event.new(hash)
+      i += 1
+    end
   end
 
 end
