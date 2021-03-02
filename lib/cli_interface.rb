@@ -57,6 +57,7 @@ class CommandLineInterface
       puts ""
     end
     Event.all.clear
+    run
   end
 
   def incorrect_selection
