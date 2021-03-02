@@ -24,9 +24,9 @@ class CommandLineInterface
 
   def user_selection(input)
     if input == "1"
-      @month = Time.now().month #obtains current month number
+      #month_number = Time.now().month #obtains current month number
+      @month = Month.all[(Time.now().month).to_i - 1].name
       @day = Time.now().day() #obtains current day number
-      binding.pry
       correct_selection
     elsif input == "2"
       puts "Select a month by entering the number that corresponds with the month:"
@@ -48,6 +48,7 @@ class CommandLineInterface
   def output_events
     Event.all.each do |x|
       puts "#{x.description}"
+      puts ""
     end
     Event.all.clear
   end
