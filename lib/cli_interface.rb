@@ -12,6 +12,8 @@ class CommandLineInterface
 
   def run
     months #calls method which creates the month object for each month
+    puts ""
+    puts "----------------------------------------------------------"
     puts "By inputing a month and a day, we can learn about notable events that happened on that day!"
     puts "Please enter 1 if you would like to learn about an event in history today."
     puts "Please enter 2 if you would like to select a month and day."
@@ -27,7 +29,7 @@ class CommandLineInterface
       #month_number = Time.now().month #obtains current month number
       @month = Month.all[(Time.now().month).to_i - 1].name
       @day = Time.now().day() #obtains current day number
-      correct_selection
+      create_scraper
     elsif input == "2"
       puts "Select a month by entering the number that corresponds with the month:"
       Month.all.each do |x|
@@ -38,11 +40,14 @@ class CommandLineInterface
       @month = Month.all[month_number.to_i - 1].name
       puts "You selected #{@month}. Please select a day of the month."
       @day = gets.strip
-      #need to add verification that the day is within the correct range
+      if valid_day?
+        create_scraper
+      else
+        incorrect_selection
+      end
     else
       incorrect_selection
     end
-    Scraper.new(@month, @day)
   end
 
   def output_events
@@ -58,7 +63,7 @@ class CommandLineInterface
     run
   end
 
-  def correct_selection
+  def create_scraper
     Scraper.new(@month, @day)
   end
 
@@ -78,4 +83,16 @@ class CommandLineInterface
     Month.new("December", 12, 31)
   end
 
+  def valid_day?
+    valid_selection = []
+    Month.all.each do |x|
+      #binding.pry
+      if x.name == @month && (x.number_of_days >= @day.to_i)
+        valid_selection << true
+      else
+        valid_selection << false
+      end
+    end
+    valid_selection.include?(true)
+  end
 end
