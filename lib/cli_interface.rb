@@ -7,6 +7,8 @@ require 'pry'
 #class will allow a user to select a month and day
 #class will allow a user to select today
 class CommandLineInterface
+  attr_reader :month, :day
+
   def run
     months
     puts "By inputing a month and a day, we can learn about notable events that happened on that day!"
@@ -15,10 +17,11 @@ class CommandLineInterface
     puts "----------------------------------------------------------"
     input = gets.strip
     user_selection(input)
+    puts "Historical events that occured on #{month} #{day}:"
+    output_events
   end
 
   def user_selection(input)
-
     if input == "1"
       @month = time.month
       @day = time.day
@@ -34,11 +37,17 @@ class CommandLineInterface
       puts "You selected #{@month}. Please select a day of the month."
       @day = gets.strip
       #need to add verification that the day is within the correct range
-
     else
       incorrect_selection
     end
     Scraper.new(@month, @day)
+  end
+
+  def output_events
+    Event.all.each do |x|
+      puts "#{x.description}"
+    end
+    Event.all.clear
   end
 
   def incorrect_selection
