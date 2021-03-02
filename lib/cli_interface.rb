@@ -1,7 +1,6 @@
 require_relative "../lib/scraper.rb"
 require_relative "../lib/month.rb"
 require_relative "../lib/event.rb"
-#require 'nokogiri'
 require 'pry'
 require 'time'
 
@@ -17,11 +16,11 @@ class CommandLineInterface
     puts "By inputing a month and a day, we can learn about notable events that happened on that day!"
     puts "Please enter 1 if you would like to learn about an event in history today."
     puts "Please enter 2 if you would like to select a month and day."
+    puts "Please enter 3 if you would like to exit the program."
     puts "----------------------------------------------------------"
     input = gets.strip #gets user selection
     user_selection(input) #calls method to handle user selection
-    puts "Historical events that occured on #{month} #{day}:"
-    output_events #calls method to output events to CLI
+    output_events unless input == "3" #calls method to output events to CLI
   end
 
   def user_selection(input)
@@ -45,12 +44,14 @@ class CommandLineInterface
       else
         incorrect_selection
       end
+    elsif input == "3"
     else
       incorrect_selection
     end
   end
 
   def output_events
+    puts "Historical events that occured on #{month} #{day}:"
     Event.all.each do |x|
       puts "#{x.description}"
       puts ""
@@ -86,7 +87,6 @@ class CommandLineInterface
   def valid_day?
     valid_selection = []
     Month.all.each do |x|
-      #binding.pry
       if x.name == @month && (x.number_of_days >= @day.to_i)
         valid_selection << true
       else
