@@ -6,10 +6,10 @@ class Event
   @@all = []
 
   def initialize(hash)
-    @month = hash(:month)
-    @day = hash(:day)
-    @year = hash(:year)
-    @description = hash(:description)
+    @month = hash[:month]
+    @day = hash[:day]
+    @year = hash[:year]
+    @description = hash[:description]
     @@all << self
   end
 
