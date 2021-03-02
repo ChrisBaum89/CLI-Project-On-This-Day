@@ -11,10 +11,16 @@ class Event
     @year = hash[:year]
     @description = hash[:description]
     @@all << self
+    sorted
   end
 
   def self.all
     @@all
+  end
+
+#sorts by year to be more intuitive to read
+  def sorted
+    @@all.sort_by(&:year)
   end
 
 end
