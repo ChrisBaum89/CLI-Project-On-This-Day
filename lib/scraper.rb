@@ -14,6 +14,7 @@ class Scraper
   end
 
   def obtain_html
+    #obtains html from Wikipedia which has list of events that occured on a day of the year
     index_url = "https://en.wikipedia.org/wiki/Wikipedia:Selected_anniversaries/#{@month}_#{@day}"
     @doc = Nokogiri::HTML(open(index_url))
   end
