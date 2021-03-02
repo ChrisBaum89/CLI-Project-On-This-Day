@@ -28,7 +28,7 @@ class Scraper
         hash = {
           :month => @month,
           :day => @day,
-          :year => @doc.css('div.mw-parser-output ul li')[i].children[0].values[1],
+          :year => @doc.css('div.mw-parser-output ul li')[i].children[0].values[1].to_i,
           :description => @doc.css('div.mw-parser-output ul li')[i].text
         }
         Event.new(hash)
