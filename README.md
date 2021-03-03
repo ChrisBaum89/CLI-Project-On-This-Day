@@ -1,4 +1,7 @@
 On This Day in History - Ruby Program
+  This program will allow you to:
+  1. Select today's date and see what notable historical events happened on that day.
+  2. Select a Month and Day of your choosing and see what notable historical events happened on that day.
 
 Getting Started
   Open your Terminal.
