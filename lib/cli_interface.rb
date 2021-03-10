@@ -95,6 +95,7 @@ class CommandLineInterface
     Month.new("December", 12, 31)
   end
 
+  #verifies the day that the user inputs is within the correct range
   def valid_day?
     valid_selection = []
     Month.all.each do |x|
@@ -111,6 +112,7 @@ class CommandLineInterface
     puts "----------------------------------------------------------"
   end
 
+  #verifies the month that the user inputs is within the correct range
   def valid_month?(month)
     if month < 1 || month > 12
       incorrect_selection
