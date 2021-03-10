@@ -99,7 +99,7 @@ class CommandLineInterface
   def valid_day?
     valid_selection = []
     Month.all.each do |x|
-      if x.name == @month.name && (x.number_of_days >= @day.to_i)
+      if x.name == @month.name && (x.number_of_days >= @day.to_i) && (@day.to_i > 0)
         valid_selection << true
       else
         valid_selection << false
