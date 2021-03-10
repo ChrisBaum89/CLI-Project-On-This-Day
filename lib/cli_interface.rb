@@ -42,9 +42,7 @@ class CommandLineInterface
       end
       puts_divider
       month_number = gets.strip.to_i
-      if month_number < 1 || month_number > 12
-        incorrect_selection
-      end
+      valid_month?(month_number)
       @month = Month.all[month_number.to_i - 1]
       puts "You entered #{@month.name}. Please enter a day of the month."
       puts "Note:  #{@month.name} has #{@month.number_of_days} days."
@@ -55,6 +53,7 @@ class CommandLineInterface
         incorrect_selection
       end
     elsif input == "3"
+      exit
     else
       incorrect_selection
     end
@@ -110,6 +109,12 @@ class CommandLineInterface
 
   def puts_divider
     puts "----------------------------------------------------------"
+  end
+
+  def valid_month?(month)
+    if month < 1 || month > 12
+      incorrect_selection
+    end
   end
 
 
