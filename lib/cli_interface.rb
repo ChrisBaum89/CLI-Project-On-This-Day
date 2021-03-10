@@ -41,7 +41,10 @@ class CommandLineInterface
         puts "#{x.number}. #{x.name}"
       end
       puts_divider
-      month_number = gets.strip
+      month_number = gets.strip.to_i
+      if month_number < 1 || month_number > 12
+        incorrect_selection
+      end
       @month = Month.all[month_number.to_i - 1]
       puts "You entered #{@month.name}. Please enter a day of the month."
       puts "Note:  #{@month.name} has #{@month.number_of_days} days."
